@@ -1,7 +1,7 @@
 Summary:	Library for parsing EXIF files from digital cameras
 Name:		libexif
 Version:	0.6.21
-Release:	1
+Release:	2
 Epoch:		1
 License:	MIT
 Group:		Libraries
@@ -10,7 +10,6 @@ Source0:	http://downloads.sourceforge.net/libexif/%{name}-%{version}.tar.bz2
 URL:		http://libexif.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-#BuildRequires:	doxygen
 BuildRequires:	gettext-devel
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -39,8 +38,6 @@ API and internal documentation for libexif library.
 %prep
 %setup -q
 
-rm -f po/stamp-po
-
 %build
 %{__gettextize}
 %{__libtoolize}
@@ -58,7 +55,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_docdir}/libexif
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/libexif
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %find_lang %{name}-12
 
